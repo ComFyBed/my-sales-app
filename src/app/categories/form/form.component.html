@@ -22,4 +22,9 @@
         type="submit"
         [disabled]="!categoryForm.valid">Enregistrer</button>
     </form>
+    <mat-card-actions>
+        <button type="button" mat-button color="primary" (click)="onBack()">
+            Retour
+        </button>
+    </mat-card-actions>
 </mat-card-content>

@@ -9,6 +9,7 @@ import { Category } from './category.dto';
 import { CategoryService } from './category.service';
 import { lastValueFrom } from 'rxjs';
 import { CategoryFormComponent } from './form/form.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-categories',
@@ -20,9 +21,33 @@ import { CategoryFormComponent } from './form/form.component';
     
   `,
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatCardModule, MatButtonModule, CategoryFormComponent]
+  imports: [
+    MatTableModule, 
+    MatPaginatorModule, 
+    MatSortModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    CategoryFormComponent,
+    MatIconModule
+  ]
 })
 export class CategoriesComponent implements AfterViewInit {
+async onDeleteCategoryClick(category: Category) {
+  if (confirm('Supprimer '+category.name+' avec id ' + category.id + '?')){
+    await lastValueFrom(this.categoryService.delete(category.id));
+    this.loadCategories();
+  }
+  console.log("This what we are going to delete ", category);
+}
+
+category!: Category;
+
+
+onEditCategory(category: Category) {
+    console.log("Edit button has been clicked : ", category);
+}
+
+
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,7 +59,7 @@ export class CategoriesComponent implements AfterViewInit {
   // Show Form
   shoForm: boolean = false;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'description'];
+  displayedColumns = ['id', 'name', 'description', 'action'];
 
   ngAfterViewInit(): void {
     this.loadCategories();
@@ -50,6 +75,24 @@ export class CategoriesComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
   onNouvelleCategorie() {
+    this.shoForm = true;
+  }
+  hideCategoryForm() {
+    this.shoForm = false;
+    this.loadCategories();
+  }
+  async onSave(category: Category) {
+    const saved = await lastValueFrom(this.categoryService.save(category));
+    console.log("Enregistré", saved);
+    this.hideCategoryForm();
+  }
+
+  onNewCategoryClick(){
+    this.category = {
+      id: 0,
+      name: "",
+      description: ""
+    };
     this.shoForm = true;
   }
 }
