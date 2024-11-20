@@ -23,11 +23,16 @@ import { CategoryFormComponent } from './form/form.component';
   imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatCardModule, MatButtonModule, CategoryFormComponent]
 })
 export class CategoriesComponent implements AfterViewInit {
+
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<CategoriesItem>;
   dataSource = new MatTableDataSource<Category>();
 
+
+  // Show Form
+  shoForm: boolean = false;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'description'];
 
@@ -43,5 +48,8 @@ export class CategoriesComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+  onNouvelleCategorie() {
+    this.shoForm = true;
   }
 }

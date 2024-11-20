@@ -19,7 +19,11 @@ export class CategoryFormComponent {
   private fb = inject(FormBuilder)
   categoryForm = this.fb.group({
       id: [null],
-      name: ["", Validators.required],
+      name: ["", [Validators.required, Validators.minLength(4)]],
       description: ["", Validators.required]
   })
+
+  onSubmit(){
+    console.log("Submit : ", this.categoryForm.value )
+  }
 }
