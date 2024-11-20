@@ -1,6 +1,15 @@
 import { Component } from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 
+
+
+interface MenuItem {
+  // * This is the path of the page
+  path: string,
+  // * This the label which displayed in the item menu
+  label: string
+}
+
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -14,7 +23,7 @@ import {MatListModule} from '@angular/material/list';
 })
 export class MenuComponent {
 
-  menuItems: Array<{path: string, label: string}> = [
+  menuItems: Array<MenuItem> = [
     {
       path: '/',
       label: 'Accueil'
