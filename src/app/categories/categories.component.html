@@ -9,7 +9,7 @@
                     (save)="onSave($event)" [category]="category"></category-form>
   }
   <mat-card-content>
-
+    <loading-bar [visible]="showLoading"></loading-bar>
     <div class="mat-elevation-z2">
       <table mat-table class="full-width-table" matSort aria-label="Elements">
         <!-- Id Column -->
@@ -56,6 +56,6 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="onNouvelleCategorie()">Nouvelle catégorie</button>
+    <button mat-raised-button color="primary" (click)="onNouvelleCategorie()">Nouvelle catégorie</button>
   </mat-card-actions>
   </mat-card>

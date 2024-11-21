@@ -10,6 +10,7 @@ import { CategoryService } from './category.service';
 import { lastValueFrom } from 'rxjs';
 import { CategoryFormComponent } from './form/form.component';
 import { MatIconModule } from '@angular/material/icon';
+import { LoadingBarComponent } from '../loading-bar.component';
 
 @Component({
   selector: 'app-categories',
@@ -26,12 +27,17 @@ import { MatIconModule } from '@angular/material/icon';
     MatPaginatorModule, 
     MatSortModule, 
     MatCardModule, 
-    MatButtonModule, 
+    MatButtonModule,
+    MatIconModule, 
     CategoryFormComponent,
-    MatIconModule
+    LoadingBarComponent
   ]
 })
 export class CategoriesComponent implements AfterViewInit {
+
+showLoading: boolean = false;
+
+
 async onDeleteCategoryClick(category: Category) {
   if (confirm('Supprimer '+category.name+' avec id ' + category.id + '?')){
     await lastValueFrom(this.categoryService.delete(category.id));
@@ -68,11 +74,13 @@ onEditCategory(category: Category) {
   constructor(private categoryService: CategoryService){}
 
   async loadCategories(): Promise<void> {
+    this.showLoading = true;
     const categories = await lastValueFrom(this.categoryService.getAll());
     this.dataSource = new MatTableDataSource(categories);
     this.table.dataSource = this.dataSource;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.showLoading = false;
   }
   onNouvelleCategorie() {
     this.shoForm = true;

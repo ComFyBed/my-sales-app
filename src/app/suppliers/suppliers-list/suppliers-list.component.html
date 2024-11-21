@@ -1,0 +1,16 @@
+<mat-card-subtitle>Liste de tous les fournisseurs</mat-card-subtitle>
+@if (suppliers$ | async; as suppliers){
+    <div class="container wrap">
+        @for (supplier of suppliers; track supplier.id){
+            <supplier-card [supplier]="supplier"></supplier-card>
+        } @empty {
+            <span>Il y'a pas des fournisseurs veuillez créer un!</span>
+        }
+    </div>
+} 
+@else {
+    <loading-bar></loading-bar>
+}
+<mat-card-actions align="end">
+<button mat-raised-button color="primary" [routerLink]="['/suppliers/new']" routerLinkActive="router-link-active">Nouveau</button>
+</mat-card-actions>
