@@ -1,1 +1,14 @@
-<p>suppliers-edit works!</p>
+<mat-card-subtitle>Section de modification d'un fournisseur</mat-card-subtitle> <br/>
+
+@if (supplierObservable$ | async){
+    <supplier-form (save)="edit($event)" [supplier]="supplier"></supplier-form>
+
+    <mat-card-actions align="end">
+        <button mat-button [routerLink]="['/suppliers']">Retour</button>
+    </mat-card-actions>
+} @else {
+    <loading-bar></loading-bar>
+}
+
+
+

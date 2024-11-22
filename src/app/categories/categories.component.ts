@@ -2,15 +2,16 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { CategoriesDataSource, CategoriesItem } from './categories-datasource';
+import { CategoriesItem } from './categories-datasource';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Category } from './category.dto';
 import { CategoryService } from './category.service';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Observable, of } from 'rxjs';
 import { CategoryFormComponent } from './form/form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LoadingBarComponent } from '../loading-bar.component';
+import { FormEditComponent } from './form-edit/form-edit.component';
 
 @Component({
   selector: 'app-categories',
@@ -30,13 +31,18 @@ import { LoadingBarComponent } from '../loading-bar.component';
     MatButtonModule,
     MatIconModule, 
     CategoryFormComponent,
-    LoadingBarComponent
+    LoadingBarComponent,
+    FormEditComponent
   ]
 })
 export class CategoriesComponent implements AfterViewInit {
+hideUpdateForm() {
+  this.showEditSection = false;
+  this.loadCategories();
+}
 
 showLoading: boolean = false;
-
+showEditSection: boolean = false;
 
 async onDeleteCategoryClick(category: Category) {
   if (confirm('Supprimer '+category.name+' avec id ' + category.id + '?')){
@@ -50,7 +56,9 @@ category!: Category;
 
 
 onEditCategory(category: Category) {
-    console.log("Edit button has been clicked : ", category);
+    this.category = category;
+    this.showEditSection = true;
+    console.log(category);
 }
 
 
@@ -93,6 +101,7 @@ onEditCategory(category: Category) {
     const saved = await lastValueFrom(this.categoryService.save(category));
     console.log("Enregistré", saved);
     this.hideCategoryForm();
+    this.hideUpdateForm();
   }
 
   onNewCategoryClick(){

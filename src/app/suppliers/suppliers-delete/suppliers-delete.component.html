@@ -1,1 +1,11 @@
-<p>suppliers-delete works!</p>
+<mat-card-subtitle>Section pour la supprimation de fournissuer</mat-card-subtitle>
+
+@if (suppliersObservable$ | async){
+    <mat-card-content class="container center wrap">
+        <h4 class="item">Vous voulez vraiment supprimer le fournissuer, {{suppliers.contactName}} ?</h4>
+        <button class="item" color="warn" mat-raised-button (click)="onConfirmation()">Oui</button>
+        <button class="item" color="primary" mat-button [routerLink]="['/suppliers/show', suppliers.id]">Non</button>
+    </mat-card-content>
+} @else {
+    <loading-bar></loading-bar>
+}

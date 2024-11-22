@@ -1,8 +1,11 @@
-<mat-card-subtitle>Section de création d'un nouveau fournisseur</mat-card-subtitle>
 <mat-card>
     <mat-card-content>
-        <form [formGroup]="newSupplierForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="supplierForm" (ngSubmit)="OnEdit()">
             <div class="container center wrap">
+            <mat-form-field class="item-20">
+                <mat-label>Id</mat-label>
+                <input matInput [readonly]="true" placeholder="Id" formControlName="id"/>
+            </mat-form-field>
             <mat-form-field class="item-30">
                 <mat-label>Company name</mat-label>
                 <input matInput placeholder="Company Name" formControlName="companyName"/>
@@ -16,6 +19,7 @@
                 <input matInput placeholder="Contact title" formControlName="contactTitle"/>
             </mat-form-field>
             </div>
+
             <mat-card-subtitle style="margin-left: 15px;">Address</mat-card-subtitle>
             <div class="container center wrap" formGroupName="address" style="margin-top: 10px;">
                 <mat-form-field class="item-90">
@@ -47,13 +51,9 @@
             </div>
 
             <!-- Button submit hadi 7ma9it bach nejbadha -->
-            <button mat-raised-button color="primary" type="submit" [disabled]="!newSupplierForm.valid">
-                Enregistrer
+            <button mat-raised-button color="primary" type="submit" [disabled]="!supplierForm.valid">
+                Modifier
             </button>
         </form>
     </mat-card-content>
 </mat-card>
-
-<mat-card-actions align="end">
-    <button mat-button [routerLink]="['/suppliers']">Retour</button>
-</mat-card-actions>

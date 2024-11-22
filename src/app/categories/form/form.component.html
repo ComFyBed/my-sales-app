@@ -1,4 +1,6 @@
-<mat-card-content>
+<mat-card-content style="background: azure;">
+    <mat-card-subtitle style="margin-bottom: 10px;"> Création d'une nouvelle catégorie </mat-card-subtitle>
+
     <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="container">
         <mat-form-field class="item-30">
@@ -22,7 +24,7 @@
         type="submit"
         [disabled]="!categoryForm.valid">Enregistrer</button>
     </form>
-    <mat-card-actions>
+    <mat-card-actions align="end">
         <button type="button" mat-button color="primary" (click)="onBack()">
             Retour
         </button>

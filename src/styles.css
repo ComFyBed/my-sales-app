@@ -27,6 +27,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 100%;
 }
 
+.item-10 {
+    flex: 0 0 10%;
+}
 .item-20 {
     flex: 0 0 20%;
 }

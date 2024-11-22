@@ -1,0 +1,40 @@
+
+    <mat-card-content style="background-color: aliceblue;">
+        <mat-card-subtitle style="margin-bottom: 10px;"> Mise à jour d'une catégorie </mat-card-subtitle>
+
+        <form [formGroup]="editForm" (ngSubmit)="onUpdate()" novalidate>
+            <div class="container" style="width: 90%;">
+                <mat-form-field class="item-20">
+                    <mat-label>Id</mat-label>
+                    <input matInput [readonly]="true" placeholder="Id" formControlName="id"/>
+                </mat-form-field>
+                <mat-form-field class="item-40">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Name" formControlName="name"/>
+                    @if (editForm.controls['name'].hasError('required')){
+                        <mat-error>Name est <strong>Obligatoire</strong></mat-error>
+                    }
+                    @if (editForm.controls['name'].hasError('minlength')){
+                        <mat-error>Name est <strong>court minimum est 3 caractere</strong></mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="item-50">
+                    <mat-label>Description</mat-label>
+                    <input matInput placeholder="Description" formControlName="description"/>
+                    @if (editForm.controls['description'].hasError('required')){
+                        <mat-error>Description est <strong>Obligatoire</strong></mat-error>
+                    }
+                </mat-form-field>                                  
+            </div>
+            <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!editForm.valid">Mise à jour</button>
+        </form>
+        <mat-card-actions align="end">
+            <button type="button" mat-button color="primary" (click)="onBack()">
+                Retour
+            </button>
+        </mat-card-actions>
+    </mat-card-content>

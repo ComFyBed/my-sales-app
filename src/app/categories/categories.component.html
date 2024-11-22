@@ -6,7 +6,9 @@
   </mat-card-header>
   @if (shoForm){
     <category-form (back)="hideCategoryForm()"
-                    (save)="onSave($event)" [category]="category"></category-form>
+                    (save)="onSave($event)"></category-form>
+  }  @if (showEditSection){
+    <app-form-edit (back)="hideUpdateForm()" (update)="onSave($event)" [category]="category"></app-form-edit>
   }
   <mat-card-content>
     <loading-bar [visible]="showLoading"></loading-bar>
@@ -55,7 +57,8 @@
       </mat-paginator>
     </div>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions align="end">
     <button mat-raised-button color="primary" (click)="onNouvelleCategorie()">Nouvelle catégorie</button>
   </mat-card-actions>
-  </mat-card>
+</mat-card>
+
